@@ -1,0 +1,640 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>スカイライン・テクノロジーズ</title>
+<meta name="description" content="スカイライン・テクノロジーズは、長く動き続ける業務システムを設計・開発するソフトウェア開発会社です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --sky: #E7EEF3;
+    --paper: #F5F8FA;
+    --surface: #FFFFFF;
+    --ink: #13202B;
+    --ink-2: #4A5B69;
+    --line: #CAD5DD;
+    --steel: #2C4A63;
+    --bldg: #20364A;
+    --bldg-hi: #2C4A63;
+    --win-off: #37506A;
+    --lamp: #E28A17;
+    --lamp-text: #955505;
+    --focus: #1F6FB2;
+
+    --f-display: "Dela Gothic One", "Hiragino Sans", "Yu Gothic", sans-serif;
+    --f-body: "IBM Plex Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+    --gutter: clamp(16px, 4vw, 48px);
+    --max: 1120px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --sky: #0B141D;
+      --paper: #101B26;
+      --surface: #15222F;
+      --ink: #E4EBF0;
+      --ink-2: #9AABB9;
+      --line: #263A4C;
+      --steel: #8FB2CF;
+      --bldg: #182939;
+      --bldg-hi: #203549;
+      --win-off: #213447;
+      --lamp: #F4A53D;
+      --lamp-text: #F4A53D;
+      --focus: #7DB8EA;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --sky: #0B141D;
+    --paper: #101B26;
+    --surface: #15222F;
+    --ink: #E4EBF0;
+    --ink-2: #9AABB9;
+    --line: #263A4C;
+    --steel: #8FB2CF;
+    --bldg: #182939;
+    --bldg-hi: #203549;
+    --win-off: #213447;
+    --lamp: #F4A53D;
+    --lamp-text: #F4A53D;
+    --focus: #7DB8EA;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+  }
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lamp-text);
+    margin: 0 0 0.6rem;
+  }
+  .lede { color: var(--ink-2); max-width: 36em; margin: 1rem 0 0; }
+
+  /* Header */
+  .site-header {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 10;
+    background: color-mix(in srgb, var(--sky) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; padding-block: 0.8rem;
+  }
+  .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .logo svg { flex: none; }
+  .logo-text { font-family: var(--f-display); font-size: 1.05rem; letter-spacing: 0.04em; line-height: 1.2; }
+  .logo-text small { display: block; font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.18em; color: var(--ink-2); }
+  .nav { display: flex; gap: clamp(0.8rem, 2vw, 1.8rem); font-size: 0.9rem; }
+  .nav a { text-decoration: none; color: var(--ink-2); }
+  .nav a:hover { color: var(--ink); }
+  .nav .nav-cta {
+    color: var(--paper); background: var(--ink); padding: 0.3rem 0.9rem; border-radius: 3px;
+  }
+  .nav .nav-cta:hover { color: var(--paper); background: var(--steel); }
+  @media (max-width: 720px) { .nav a:not(.nav-cta) { display: none; } }
+
+  /* Announce */
+  .announce { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .announce .wrap {
+    display: flex; align-items: baseline; flex-wrap: wrap;
+    gap: 0.5rem 1.6rem; padding-block: 0.65rem; font-size: 0.85rem;
+  }
+  .announce .label {
+    flex: none; display: inline-flex; align-items: center; gap: 0.4rem;
+    font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    color: var(--lamp-text);
+  }
+  .announce .label::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--lamp);
+  }
+  .announce ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.6rem; }
+  .announce li { display: flex; gap: 0.6rem; align-items: baseline; }
+  .announce time { font-family: var(--f-mono); font-size: 0.75rem; color: var(--ink-2); font-variant-numeric: tabular-nums; flex: none; }
+  .announce .new {
+    font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.06em;
+    color: var(--lamp-text); border: 1px solid var(--lamp-text); border-radius: 99px;
+    padding: 0.02rem 0.4rem; flex: none;
+  }
+
+  /* Hero */
+  .hero { background: linear-gradient(180deg, var(--sky) 0%, var(--paper) 100%); padding-top: clamp(3rem, 8vw, 6rem); }
+  .hero h1 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(2.1rem, 6.2vw, 4.4rem);
+    line-height: 1.22;
+    letter-spacing: 0.01em;
+  }
+  .hero h1 .lamp { color: var(--lamp-text); }
+  .hero .lede { font-size: 1.05rem; }
+
+  .skyline-fig { margin: clamp(2.5rem, 6vw, 4rem) 0 0; position: relative; }
+  .skyline-fig svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .skyline-cap {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.4rem 1.5rem;
+    font-family: var(--f-mono); font-size: 0.75rem; color: var(--ink-2);
+    border-top: 2px solid var(--ink); padding-top: 0.6rem; margin-top: 0;
+  }
+  .skyline-cap .key { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .skyline-cap .swatch { width: 8px; height: 10px; background: var(--lamp); display: inline-block; }
+  .bldg { cursor: pointer; }
+  .bldg rect.body { fill: var(--bldg); transition: fill .2s; }
+  .bldg:hover rect.body, .bldg:focus rect.body, .bldg.is-active rect.body { fill: var(--bldg-hi); }
+  .bldg:focus { outline: none; }
+  .bldg:focus-visible rect.body { stroke: var(--focus); stroke-width: 2; }
+  .win { fill: var(--win-off); }
+  .win.on { fill: var(--lamp); }
+  .grid-line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 4; }
+  .grid-label { fill: var(--ink-2); font-family: var(--f-mono); font-size: 11px; }
+  .tip {
+    position: absolute; pointer-events: none;
+    background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 4px;
+    padding: 0.5rem 0.75rem; font-size: 0.8rem; line-height: 1.5;
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.12);
+    transform: translate(-50%, calc(-100% - 10px));
+    white-space: nowrap;
+  }
+  .tip b { display: block; font-weight: 700; }
+  .tip span { font-family: var(--f-mono); color: var(--ink-2); font-size: 0.72rem; }
+
+  section { padding-block: clamp(4rem, 9vw, 7rem); }
+  .sec-head { display: grid; gap: 0.2rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+  /* Services */
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+  .service { padding: 1.8rem 1.6rem 2rem 0; border-bottom: 1px solid var(--line); display: grid; gap: 0.6rem; align-content: start; }
+  @media (min-width: 560px) {
+    .service { padding-left: 1.6rem; border-left: 1px solid var(--line); }
+  }
+  .service h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.5; }
+  .service p { margin: 0; color: var(--ink-2); font-size: 0.95rem; }
+  .service .stack { font-family: var(--f-mono); font-size: 0.72rem; color: var(--steel); letter-spacing: 0.02em; }
+
+  /* Works */
+  .works-sec { background: var(--sky); }
+  .table-scroll { overflow-x: auto; }
+  table.works { width: 100%; border-collapse: collapse; min-width: 620px; font-size: 0.92rem; }
+  .works th, .works td { text-align: left; padding: 0.85rem 0.8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .works th { font-family: var(--f-mono); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--ink-2); border-bottom: 2px solid var(--ink); }
+  .works td.num, .works th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); }
+  .works .tag { font-size: 0.75rem; color: var(--steel); border: 1px solid var(--line); padding: 0.05rem 0.5rem; border-radius: 99px; white-space: nowrap; }
+  .works tr.is-active td { background: var(--surface); }
+  .works .uptime { color: var(--ink-2); }
+
+  /* Process */
+  .process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem 1.5rem; counter-reset: step; }
+  .process li { display: grid; gap: 0.4rem; align-content: start; }
+  .process .wk { font-family: var(--f-mono); font-size: 0.75rem; color: var(--lamp-text); letter-spacing: 0.06em; }
+  .process h3 { font-size: 1.05rem; font-weight: 700; padding-bottom: 0.6rem; border-bottom: 2px solid var(--ink); }
+  .process p { margin: 0; color: var(--ink-2); font-size: 0.93rem; }
+
+  /* Company */
+  .company { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(2rem, 5vw, 4rem); }
+  @media (max-width: 800px) { .company { grid-template-columns: 1fr; } }
+  .company-msg p { color: var(--ink-2); margin: 1rem 0 0; }
+  .company-msg .sign { color: var(--ink); font-size: 0.9rem; margin-top: 1.5rem; }
+  dl.profile { margin: 0; display: grid; grid-template-columns: max-content 1fr; border-top: 1px solid var(--line); }
+  .profile dt, .profile dd { margin: 0; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
+  .profile dt { color: var(--ink-2); font-size: 0.85rem; padding-right: 2rem; }
+  .profile dd { font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+  @media (max-width: 480px) {
+    dl.profile { grid-template-columns: 1fr; }
+    .profile dt { border-bottom: 0; padding-bottom: 0; }
+    .profile dd { padding-top: 0.2rem; }
+  }
+
+  /* Contact */
+  .contact-sec { background: var(--bldg); color: #E8EEF3; }
+  .contact-sec .eyebrow { color: var(--lamp); }
+  .contact-sec .lede { color: #AFC0CE; }
+  .contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: clamp(2rem, 5vw, 4rem); }
+  @media (max-width: 800px) { .contact { grid-template-columns: 1fr; } }
+  .direct { margin-top: 2rem; display: grid; gap: 1rem; }
+  .direct div { display: grid; }
+  .direct .k { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.12em; color: #AFC0CE; }
+  .direct .v { font-size: 1.05rem; user-select: all; font-variant-numeric: tabular-nums; }
+  form { display: grid; gap: 1rem; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+  label { display: grid; gap: 0.35rem; font-size: 0.85rem; color: #C9D6E0; }
+  label .req { color: var(--lamp); font-size: 0.72rem; margin-left: 0.3rem; }
+  input, select, textarea {
+    font: inherit; font-size: 0.95rem; color: #E8EEF3;
+    background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: 3px; padding: 0.65rem 0.75rem; width: 100%;
+    color-scheme: dark;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--lamp); outline-offset: 0; border-color: transparent; }
+  textarea { min-height: 8rem; resize: vertical; }
+  .submit {
+    justify-self: start; font: inherit; font-weight: 700; cursor: pointer;
+    background: var(--lamp); color: #1A1206; border: 0; border-radius: 3px;
+    padding: 0.75rem 1.8rem;
+  }
+  .submit:hover { filter: brightness(1.08); }
+  .submit:focus-visible { outline: 2px solid #E8EEF3; outline-offset: 3px; }
+  .form-note { font-size: 0.85rem; color: #AFC0CE; margin: 0; }
+  .form-done { border: 1px solid var(--lamp); padding: 1rem 1.2rem; border-radius: 3px; margin: 0; }
+
+  footer { background: var(--bldg); color: #AFC0CE; border-top: 1px solid rgb(255 255 255 / 0.1); font-size: 0.8rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; padding-block: 1.6rem; }
+  footer .mono { font-family: var(--f-mono); }
+</style>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="スカイライン・テクノロジーズ トップへ">
+      <svg width="34" height="28" viewBox="0 0 34 28" aria-hidden="true">
+        <rect x="0" y="14" width="7" height="14" fill="currentColor"/>
+        <rect x="9" y="4" width="8" height="24" fill="currentColor"/>
+        <rect x="19" y="10" width="6" height="18" fill="currentColor"/>
+        <rect x="27" y="0" width="7" height="28" fill="currentColor"/>
+        <rect x="12" y="8" width="2" height="2" fill="var(--lamp)"/>
+        <rect x="29" y="5" width="2" height="2" fill="var(--lamp)"/>
+      </svg>
+      <span class="logo-text">スカイライン・テクノロジーズ<small>SKYLINE TECHNOLOGIES</small></span>
+    </a>
+    <nav class="nav" aria-label="メイン">
+      <a href="#services">事業内容</a>
+      <a href="#works">実績</a>
+      <a href="#process">進め方</a>
+      <a href="#company">会社概要</a>
+      <a class="nav-cta" href="#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="announce" aria-label="お知らせ">
+  <div class="wrap">
+    <span class="label">お知らせ</span>
+    <ul>
+      <li><time datetime="2026-09-15">2026.09.15</time><span>福岡開発センターを増床し、採用を強化しています<span class="new">NEW</span></span></li>
+      <li><time datetime="2026-08-01">2026.08.01</time><span>ISO/IEC 27001の更新審査に合格しました</span></li>
+      <li><time datetime="2026-06-10">2026.06.10</time><span>夏季休業のお知らせ（8月13日〜8月16日）</span></li>
+    </ul>
+  </div>
+</div>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Software Development Since 2014</p>
+      <h1>作ったシステムが、<br>街の明かりのように<br><span class="lamp">灯り続ける。</span></h1>
+      <p class="lede">スカイライン・テクノロジーズは、物流・金融・医療・行政などの業務システムを設計から運用まで一貫して手がけるソフトウェア開発会社です。リリースの先、何年も安定して動き続けるシステムをつくります。</p>
+
+      <figure class="skyline-fig" id="skyline">
+        <svg id="skyline-svg" role="img" aria-labelledby="skyline-title"><title id="skyline-title">稼働中のシステムを建物として描いたスカイライン。高さは本番稼働月数。</title></svg>
+        <figcaption class="skyline-cap">
+          <span>建物 1棟 = 当社が開発し、いまも稼働中のシステム ／ 高さ = 本番稼働月数</span>
+          <span class="key"><i class="swatch"></i>灯り = 直近30日のリリース数　2026年9月時点</span>
+        </figcaption>
+        <div class="tip" id="tip" hidden></div>
+      </figure>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Services</p>
+        <h2>事業内容</h2>
+        <p class="lede">要件の整理から、設計・開発・運用保守まで。お客様の業務に合わせて、必要な範囲からお手伝いします。</p>
+      </div>
+      <div class="services">
+        <article class="service">
+          <h3>業務システム開発</h3>
+          <p>基幹システムの刷新や、紙とExcelで回っている業務のシステム化。現場のヒアリングから始め、使われ続ける画面と仕組みを設計します。</p>
+          <p class="stack">Java / Go / PostgreSQL / Oracle</p>
+        </article>
+        <article class="service">
+          <h3>Web・モバイルアプリ</h3>
+          <p>一般ユーザー向けのサービスから社内ツールまで。アクセシビリティと表示速度を初期設計から組み込みます。</p>
+          <p class="stack">TypeScript / React / Swift / Kotlin</p>
+        </article>
+        <article class="service">
+          <h3>クラウド基盤・移行</h3>
+          <p>オンプレミスからクラウドへの段階的な移行と、監視・バックアップを含むインフラのコード化を行います。</p>
+          <p class="stack">AWS / Google Cloud / Terraform</p>
+        </article>
+        <article class="service">
+          <h3>運用保守・SRE</h3>
+          <p>リリース後の障害対応、性能改善、定期的な機能追加。稼働率の目標を決め、数字で運用品質を報告します。</p>
+          <p class="stack">SLO設計 / 24時間監視 / 月次レポート</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="works" class="works-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Works</p>
+        <h2>稼働中の主な実績</h2>
+        <p class="lede">上のスカイラインに描いた11のシステムです。守秘義務のため、お客様名は業種のみの記載としています。</p>
+      </div>
+      <div class="table-scroll">
+        <table class="works">
+          <thead>
+            <tr>
+              <th>システム</th>
+              <th>業種</th>
+              <th>本番稼働</th>
+              <th class="num">稼働月数</th>
+              <th class="num">年間稼働率</th>
+            </tr>
+          </thead>
+          <tbody id="works-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Process</p>
+        <h2>開発の進め方</h2>
+        <p class="lede">中規模の業務システム（開発期間6か月程度）の場合の標準的な流れです。2週間ごとに動くものをお見せしながら進めます。</p>
+      </div>
+      <ol class="process">
+        <li>
+          <span class="wk">第1〜3週</span>
+          <h3>現場の把握</h3>
+          <p>実際に業務を行う方へのヒアリングと作業の観察を行い、課題と優先順位を一枚の資料にまとめます。</p>
+        </li>
+        <li>
+          <span class="wk">第4〜6週</span>
+          <h3>設計と試作</h3>
+          <p>画面の試作品を触っていただきながら、データ構造とシステム構成を決めます。概算費用はこの段階で確定します。</p>
+        </li>
+        <li>
+          <span class="wk">第7〜22週</span>
+          <h3>開発とレビュー</h3>
+          <p>2週間単位で開発し、毎回動く画面で確認していただきます。変更の要望は次の2週間に反映します。</p>
+        </li>
+        <li>
+          <span class="wk">第23〜26週</span>
+          <h3>移行とリリース</h3>
+          <p>既存データの移行リハーサルを2回以上行ってから本番に切り替えます。操作説明会も実施します。</p>
+        </li>
+        <li>
+          <span class="wk">リリース後</span>
+          <h3>運用と改善</h3>
+          <p>監視と障害対応を引き継ぎ、毎月の稼働レポートと改善提案をお届けします。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="company" class="works-sec">
+    <div class="wrap company">
+      <div class="company-msg">
+        <p class="eyebrow">Company</p>
+        <h2>会社概要</h2>
+        <p>高いビルは、深い基礎の上にしか建ちません。私たちは派手な機能より、止まらないこと、直しやすいこと、引き継げることを大切にしてきました。10年以上動き続けているシステムが、私たちのいちばんの実績です。</p>
+        <p class="sign">代表取締役　高峰 蒼</p>
+      </div>
+      <dl class="profile">
+        <dt>社名</dt><dd>スカイライン・テクノロジーズ株式会社</dd>
+        <dt>設立</dt><dd>2014年4月</dd>
+        <dt>資本金</dt><dd>5,000万円</dd>
+        <dt>代表者</dt><dd>代表取締役　高峰 蒼</dd>
+        <dt>従業員数</dt><dd>86名（うちエンジニア 71名）2026年9月時点</dd>
+        <dt>所在地</dt><dd>〒100-0000　東京都千代田区空見町 1-2-3　天望ビル 14階</dd>
+        <dt>拠点</dt><dd>東京本社、福岡開発センター</dd>
+        <dt>認証</dt><dd>ISO/IEC 27001（情報セキュリティ）、プライバシーマーク</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-sec">
+    <div class="wrap contact">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2>お問い合わせ</h2>
+        <p class="lede">構想段階のご相談も歓迎します。2営業日以内に担当者からご連絡します。</p>
+        <div class="direct">
+          <div><span class="k">EMAIL</span><span class="v">contact@skyline-tech.example</span></div>
+          <div><span class="k">TEL</span><span class="v">03-0000-1234（平日 9:30〜18:00）</span></div>
+        </div>
+      </div>
+      <form id="contact-form" novalidate>
+        <div class="row2">
+          <label for="f-name">お名前<span class="req">必須</span>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </label>
+          <label for="f-org">会社名・団体名
+            <input id="f-org" name="org" type="text" autocomplete="organization">
+          </label>
+        </div>
+        <div class="row2">
+          <label for="f-email">メールアドレス<span class="req">必須</span>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </label>
+          <label for="f-topic">ご相談の内容
+            <select id="f-topic" name="topic">
+              <option>新規システムの開発</option>
+              <option>既存システムの改修・移行</option>
+              <option>運用保守の引き継ぎ</option>
+              <option>採用について</option>
+              <option>その他</option>
+            </select>
+          </label>
+        </div>
+        <label for="f-msg">詳細<span class="req">必須</span>
+          <textarea id="f-msg" name="message" required placeholder="現在の課題、ご希望の時期、ご予算感などをご記入ください。"></textarea>
+        </label>
+        <p class="form-note" id="form-note">このページはデモのため、フォームの内容は実際には送信されません。</p>
+        <button class="submit" type="submit">内容を確認して送信</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 スカイライン・テクノロジーズ株式会社（架空の企業です）</span>
+    <span class="mono">SKYLINE TECHNOLOGIES INC.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // 実績データ：稼働月数は 2026年9月時点で算出
+  var works = [
+    { name: "鉄道運行情報 配信基盤", sector: "交通", y: 2015, m: 11, up: "99.995%", lit: 3 },
+    { name: "港湾コンテナ管理システム", sector: "物流", y: 2017, m: 6, up: "99.98%", lit: 2 },
+    { name: "EC在庫連携API", sector: "小売", y: 2019, m: 11, up: "99.99%", lit: 9 },
+    { name: "物流ルート最適化エンジン", sector: "物流", y: 2018, m: 10, up: "99.97%", lit: 5 },
+    { name: "地方銀行向けモバイルバンキング", sector: "金融", y: 2020, m: 4, up: "99.99%", lit: 4 },
+    { name: "病院予約・Web問診アプリ", sector: "医療", y: 2021, m: 7, up: "99.96%", lit: 6 },
+    { name: "圃場モニタリングIoT", sector: "農業", y: 2022, m: 3, up: "99.93%", lit: 3 },
+    { name: "学習管理プラットフォーム", sector: "教育", y: 2023, m: 1, up: "99.95%", lit: 8 },
+    { name: "電力需給予測ダッシュボード", sector: "エネルギー", y: 2024, m: 5, up: "99.97%", lit: 7 },
+    { name: "自治体 電子申請窓口", sector: "行政", y: 2025, m: 2, up: "99.98%", lit: 5 },
+    { name: "建設現場 工程管理アプリ", sector: "建設", y: 2025, m: 10, up: "99.94%", lit: 10 }
+  ];
+  var AS_OF = { y: 2026, m: 9 };
+  works.forEach(function (w) { w.months = (AS_OF.y - w.y) * 12 + (AS_OF.m - w.m); });
+
+  // --- 表 ---
+  var tbody = document.getElementById("works-body");
+  var sorted = works.slice().sort(function (a, b) { return b.months - a.months; });
+  sorted.forEach(function (w) {
+    var tr = document.createElement("tr");
+    tr.dataset.name = w.name;
+    tr.innerHTML =
+      "<td>" + w.name + "</td>" +
+      '<td><span class="tag">' + w.sector + "</span></td>" +
+      "<td>" + w.y + "年" + w.m + "月</td>" +
+      '<td class="num">' + w.months + "</td>" +
+      '<td class="num uptime">' + w.up + "</td>";
+    tbody.appendChild(tr);
+  });
+
+  // --- スカイライン ---
+  var svg = document.getElementById("skyline-svg");
+  var NS = "http://www.w3.org/2000/svg";
+  var W = 1000, H = 340, left = 44, top = 14, bottom = H;
+  var maxM = 132; // 目盛り上限（11年）
+  var plotH = bottom - top;
+  var scale = function (mo) { return (mo / maxM) * plotH; };
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+
+  function el(tag, attrs, parent) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(n);
+    return n;
+  }
+
+  [24, 48, 72, 96, 120].forEach(function (t) {
+    var y = bottom - scale(t);
+    el("line", { x1: left, x2: W, y1: y, y2: y, "class": "grid-line" });
+    var lab = el("text", { x: 0, y: y + 4, "class": "grid-label" });
+    lab.textContent = t + "ヶ月";
+  });
+
+  // 決定的な疑似乱数（再描画しても同じ窓の灯り方になる）
+  var seed = 7;
+  function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+
+  var widths = [70, 92, 64, 84, 76, 88, 60, 80, 72, 66, 58];
+  var gap = 8;
+  var totalW = widths.reduce(function (a, b) { return a + b; }, 0) + gap * (works.length - 1);
+  var x = left + (W - left - totalW) / 2;
+  var tip = document.getElementById("tip");
+  var fig = document.getElementById("skyline");
+
+  works.forEach(function (w, i) {
+    var bw = widths[i], bh = scale(w.months), by = bottom - bh;
+    var g = el("g", { "class": "bldg", tabindex: "0", role: "img",
+      "aria-label": w.name + "、" + w.sector + "、稼働" + w.months + "ヶ月" });
+    el("rect", { "class": "body", x: x, y: by, width: bw, height: bh }, g);
+    if (i % 3 === 1) el("rect", { "class": "body", x: x + bw / 2 - 1.5, y: by - 16, width: 3, height: 16 }, g);
+
+    // 窓
+    var cols = Math.max(2, Math.floor((bw - 12) / 12));
+    var rows = Math.max(1, Math.floor((bh - 14) / 16));
+    var cellW = (bw - 12) / cols;
+    var winCells = [];
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var wr = el("rect", { "class": "win", x: x + 6 + c * cellW + (cellW - 5) / 2, y: by + 10 + r * 16, width: 5, height: 7 }, g);
+        winCells.push(wr);
+      }
+    }
+    // 灯りの数 = 直近30日のリリース数
+    for (var n = 0; n < w.lit && winCells.length; n++) {
+      var idx = Math.floor(rnd() * winCells.length);
+      winCells.splice(idx, 1)[0].classList.add("on");
+    }
+
+    var cx = x + bw / 2;
+    function show() {
+      var box = svg.getBoundingClientRect();
+      var ratio = box.width / W;
+      tip.innerHTML = "<b>" + w.name + "</b><span>" + w.sector + " ／ 稼働 " + w.months + "ヶ月 ／ 直近30日 " + w.lit + "リリース</span>";
+      tip.hidden = false;
+      var px = cx * ratio;
+      var half = tip.offsetWidth / 2;
+      px = Math.min(Math.max(px, half), box.width - half);
+      tip.style.left = px + "px";
+      tip.style.top = (by * ratio) + "px";
+      highlight(w.name, true);
+    }
+    function hide() { tip.hidden = true; highlight(w.name, false); }
+    g.addEventListener("mouseenter", show);
+    g.addEventListener("mouseleave", hide);
+    g.addEventListener("focus", show);
+    g.addEventListener("blur", hide);
+    g.addEventListener("click", function () {
+      var row = tbody.querySelector('tr[data-name="' + w.name + '"]');
+      if (row) row.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+    });
+    g.addEventListener("keydown", function (e) { if (e.key === "Enter") g.dispatchEvent(new Event("click")); });
+
+    x += bw + gap;
+  });
+
+  function highlight(name, on) {
+    var row = tbody.querySelector('tr[data-name="' + name + '"]');
+    if (row) row.classList.toggle("is-active", on);
+  }
+
+  // --- フォーム ---
+  var form = document.getElementById("contact-form");
+  var note = document.getElementById("form-note");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var fName = document.getElementById("f-name");
+    var fEmail = document.getElementById("f-email");
+    var fMsg = document.getElementById("f-msg");
+    var missing = [];
+    if (!fName.value.trim()) missing.push("お名前");
+    if (!fEmail.value.trim() || !fEmail.checkValidity()) missing.push("メールアドレス");
+    if (!fMsg.value.trim()) missing.push("詳細");
+    if (missing.length) {
+      note.textContent = missing.join("・") + "を入力してください。メールアドレスは name@example.jp の形式でご記入ください。";
+      note.style.color = "var(--lamp)";
+      return;
+    }
+    var done = document.createElement("p");
+    done.className = "form-done";
+    done.textContent = fName.value.trim() + " 様、入力内容を確認しました。このページはデモのため実際には送信されていません。お急ぎの場合は上記のメールアドレスへご連絡ください。";
+    form.replaceWith(done);
+  });
+})();
+</script>
